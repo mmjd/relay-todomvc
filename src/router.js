@@ -5,16 +5,17 @@ import Route from 'found/lib/Route';
 import { Resolver } from 'found-relay';
 import React from 'react';
 import { graphql } from 'react-relay';
-import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import { Environment, /*Network, */RecordSource, Store } from 'relay-runtime';
+import Network from './RelayNetwork';
 
 import TodoApp from './components/TodoApp';
 import TodoList from './components/TodoList';
 
 export const historyMiddlewares = [queryMiddleware];
 
-export function createResolver(fetcher) {
+export function createResolver(fetcher, callback) {
   const environment = new Environment({
-    network: Network.create((...args) => fetcher.fetch(...args)),
+    network: Network.create(callback, (...args) => fetcher.fetch(...args)),
     store: new Store(new RecordSource()),
   });
 

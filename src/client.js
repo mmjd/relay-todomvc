@@ -13,9 +13,11 @@ import 'todomvc-app-css/index.css';
 
 import './assets/learn.json';
 
+import config from './config';
+
 (async () => {
   // eslint-disable-next-line no-underscore-dangle
-  const fetcher = new ClientFetcher('/graphql', window.__RELAY_PAYLOADS__);
+  const fetcher = new ClientFetcher(config.graphqlServerUrl, window.__RELAY_PAYLOADS__);
   const resolver = createResolver(fetcher);
 
   const Router = await createInitialFarceRouter({

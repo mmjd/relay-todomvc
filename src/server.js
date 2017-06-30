@@ -6,16 +6,20 @@ import ReactDOMServer from 'react-dom/server';
 import serialize from 'serialize-javascript';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
+import cors from 'cors';
 
 import { ServerFetcher } from './fetcher';
 import { createResolver, historyMiddlewares, render, routeConfig }
   from './router';
 import schema from './data/schema';
+import config from './config';
 
-const PORT = 8080;
+const PORT = config.port;
 
 const app = express();
 
+app.use(cors());
+app.options('*', cors()); // include before other routes 
 app.use('/graphql', graphQLHTTP({ schema }));
 
 const webpackConfig = {
@@ -47,13 +51,19 @@ app.use(webpackMiddleware(webpack(webpackConfig), {
 }));
 
 app.use(async (req, res) => {
-  const fetcher = new ServerFetcher(`http://localhost:${PORT}/graphql`);
+  const fetcher = new ServerFetcher(config.graphqlServerUrl);
+
+  const callback = (error) => {
+    console.log('server-side callback: ', error);
+    res.redirect(302, 'http://google.com?currentLocation='+req.originalUrl);
+    return;
+  }
 
   const { redirect, status, element } = await getFarceResult({
     url: req.url,
     historyMiddlewares,
     routeConfig,
-    resolver: createResolver(fetcher),
+    resolver: createResolver(fetcher, callback),
     render,
   });
 

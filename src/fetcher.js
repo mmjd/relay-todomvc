@@ -17,6 +17,13 @@ class FetcherBase {
       },
       body: JSON.stringify({ query: operation.text, variables }),
     });
+
+    if (response.status === 401) {
+      console.log('unauthorized. going to login page');
+      //throw new RedirectException('http://bing.com/');
+      throw new Error('Err-11111: authentication failed');
+    }
+    
     return response.json();
   }
 }
