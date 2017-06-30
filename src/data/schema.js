@@ -7,6 +7,7 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
+  GraphQLError,
 } from 'graphql';
 import {
   connectionArgs,
@@ -85,9 +86,10 @@ const GraphQLUser = new GraphQLObjectType({
         },
         ...connectionArgs,
       },
-      resolve: (obj, { status, ...args }) => (
-        connectionFromArray(getTodos(status), args)
-      ),
+      resolve: (obj, { status, ...args }) => {
+        // throw new GraphQLError('my custom error');
+        return connectionFromArray(getTodos(status), args)
+      },
     },
     numTodos: {
       type: GraphQLInt,

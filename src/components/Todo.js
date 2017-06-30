@@ -7,6 +7,7 @@ import ChangeTodoStatusMutation from '../mutations/ChangeTodoStatusMutation';
 import RemoveTodoMutation from '../mutations/RemoveTodoMutation';
 import RenameTodoMutation from '../mutations/RenameTodoMutation';
 import TodoTextInput from './TodoTextInput';
+import { withRouter } from 'found';
 
 const propTypes = {
   viewer: PropTypes.object.isRequired,
@@ -63,6 +64,18 @@ class Todo extends React.Component {
     const { relay, viewer, todo } = this.props;
 
     RemoveTodoMutation.commit(relay.environment, viewer, todo);
+
+    // this.props.router.replace({
+    //     pathname: '/foo',
+    //     search: '?bar=baz',
+    //     hash: '#qux',
+    //   });
+
+    // this.props.router.replace({
+    //   ...location,
+    //   query: {...query, ['the'+Math.random()]: 'new-query' + Math.random() },
+    //   hash: '#new-hash',
+    // })
   }
 
   render() {
@@ -111,7 +124,7 @@ class Todo extends React.Component {
 
 Todo.propTypes = propTypes;
 
-export default createFragmentContainer(Todo, {
+export default createFragmentContainer(withRouter(Todo), {
   viewer: graphql`
     fragment Todo_viewer on User {
       id
