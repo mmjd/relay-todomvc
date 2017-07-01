@@ -30,6 +30,6 @@ import config from './config';
 
   ReactDOM.render(
     <Router resolver={resolver} />,
-    document.getElementById('root'),
+    document.getElementById('root'), 
   );
 })();

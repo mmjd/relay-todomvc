@@ -7,6 +7,7 @@
     "react"
   ],
   "plugins": [
-    ["relay", { "schema": "src/data/schema.graphql" }]
+    ["relay", { "schema": "src/data/schema.graphql" }],
+    "system-import-transformer",
   ]
 }

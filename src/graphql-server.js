@@ -4,13 +4,16 @@ import cors from 'cors';
 import schema from './data/schema';
 import config from './config';
 
+console.log('config is ', config);
+
 const PORT = config.graphqlServerPort;
 const app = express();
 
 app.use(cors());
 app.options('*', cors()); // include before other routes 
 
-app.use('/graphql', graphQLHTTP({ schema}));
+app.post('/graphql', graphQLHTTP({ schema}));
+app.get('/graphql', graphQLHTTP({ schema, graphiql: true}));
 
 // app.get('/graphql', graphQLHTTP({ schema, graphiql: false }));
 // app.post('/graphql', graphQLHTTP({ schema, graphiql: false }));

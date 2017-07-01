@@ -8,8 +8,8 @@ import { graphql } from 'react-relay';
 import { Environment, /*Network, */RecordSource, Store } from 'relay-runtime';
 import Network from './RelayNetwork';
 
-import TodoApp from './components/TodoApp';
-import TodoList from './components/TodoList';
+// import TodoApp from './components/TodoApp';
+// import TodoList from './components/TodoList';
 
 export const historyMiddlewares = [queryMiddleware];
 
@@ -33,7 +33,10 @@ const TodoListQuery = graphql`
 export const routeConfig = makeRouteConfig(
   <Route
     path="/"
-    Component={TodoApp}
+    getComponent={() => (
+      System.import('./components/TodoApp.js').then(module => module.default)
+    )}
+    // Component={TodoApp}
     query={graphql`
       query router_TodoApp_Query {
         viewer {
@@ -43,13 +46,19 @@ export const routeConfig = makeRouteConfig(
     `}
   >
     <Route
-      Component={TodoList}
+      // Component={TodoList}
+      getComponent={() => (
+        System.import('./components/TodoList.js').then(module => module.default)
+      )}
       query={TodoListQuery}
       prepareVariables={params => ({ ...params, status: 'any' })}
     />
     <Route
       path=":status"
-      Component={TodoList}
+      // Component={TodoList}
+      getComponent={() => (
+        System.import('./components/TodoList.js').then(module => module.default)
+      )}
       query={TodoListQuery}
     />
   </Route>,
