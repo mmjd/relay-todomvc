@@ -1,15 +1,10 @@
 //https://github.com/css-modules/css-modules-require-hook#using-with-babel-node--es6-imports
 import csshook from 'css-modules-require-hook/preset'; // import hook before routes
 import express from 'express';
-// import graphQLHTTP from 'express-graphql';
-// import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import { getFarceResult } from 'found/lib/server';
 import ReactDOMServer from 'react-dom/server';
 import serialize from 'serialize-javascript';
-// import webpack from 'webpack';
-// import webpackMiddleware from 'webpack-dev-middleware';
 import cors from 'cors';
-// import hook from 'css-modules-require-hook';
 import path from 'path';
 
 import { ServerFetcher } from './fetcher';
@@ -32,45 +27,6 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/assets/css/todomvc-common.css', express.static(path.join(__dirname, '../node_modules/todomvc-common/base.css')));
 app.use('/assets/css/todomvc-app-css.css', express.static(path.join(__dirname, '../node_modules/todomvc-app-css/index.css')));
 
-
-// console.log('css-modules-require-hook: ', hook);
-//https://github.com/css-modules/css-modules-require-hook
-// hook({
-//   generateScopedName: '[name]__[local]___[hash:base64:5]',
-//   extensions: ['.scss', '.css', '.less'] // or whatever you're using
-// });
-
-//app.use(cors());
-//app.options('*', cors()); // include before other routes 
-//app.use('/graphql', graphQLHTTP({ schema }));
-
-// const webpackConfig = {
-//   entry: [
-//     'babel-polyfill',
-//     './src/client',
-//   ],
-
-//   output: {
-//     path: '/',
-//     filename: 'bundle.js',
-//   },
-
-//   module: {
-//     rules: [
-//       { test: /\.js$/, exclude: /node_modules/, use: 'babel-loader' },
-//       { test: /\.css$/, use: ExtractTextPlugin.extract('css-loader') },
-//       { test: /learn\.json$/, use: 'file-loader?name=[name].[ext]' },
-//     ],
-//   },
-
-//   plugins: [
-//     new ExtractTextPlugin('styles.css'),
-//   ],
-// };
-
-// app.use(webpackMiddleware(webpack(webpackConfig), {
-//   stats: { colors: true },
-// }));
 
 app.use(async (req, res) => {
   const fetcher = new ServerFetcher(config.graphqlServerUrl);

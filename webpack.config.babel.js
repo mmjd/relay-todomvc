@@ -1,4 +1,5 @@
 import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
 
@@ -66,43 +67,13 @@ export default {
   },
 
 
-
-        // {
-        //   test: /\.css$/,
-        //   //loaders: ['style-loader','css-loader?importLoders=1', 'postcss-loader']
-        //   //loader: ExtractTextPlugin.extract({fallbackLoader:'style', loader:'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'})//
-        //   loader: ExtractTextPlugin.extract({fallbackLoader:'style-loader', loader:'css-loader?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'})
-        //   //loader: ExtractTextPlugin.extract({fallbackLoader:'style', loader:'css?modules&localIdentName=[hash:base64:5]!postcss'})
-        // },
-        // {
-        //   test: /\.scss$/,
-        //   //loaders: ['style-loader','css-loader?importLoders=1', 'postcss-loader']
-        //   //loader: ExtractTextPlugin.extract({fallbackLoader:'style', loader:'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'})//
-        //   loader: ExtractTextPlugin.extract({fallbackLoader:'style-loader', loader:'css-loader?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader'})
-        //   //loader: ExtractTextPlugin.extract({fallbackLoader:'style', loader:'css?modules&localIdentName=[hash:base64:5]!postcss'})
-        // },
-        // {
-        //   test: /\.less$/,
-        //   //loaders: ['style-loader','css-loader?importLoders=1', 'postcss-loader']
-        //   //loader: ExtractTextPlugin.extract({fallbackLoader:'style', loader:'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'})//
-        //   loader: ExtractTextPlugin.extract({fallbackLoader:'style-loader', loader:'css-loader?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!less-loader'})
-        //   //loader: ExtractTextPlugin.extract({fallbackLoader:'style', loader:'css?modules&localIdentName=[hash:base64:5]!postcss'})
-        // },
-        // {
-        //   loader: 'url-loader?limit=100000',
-        //   test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
-     
-        // },
-        // {
-        //   test: /\.json$/,
-        //   loader: "json-loader"
-        // }
-
-
   plugins: [
-    new ExtractTextPlugin('styles.css'),
-  ],
-  plugins: [
+      //only for supporting client-side version
+      new HtmlWebpackPlugin({
+        title: 'Relay • TodoMVC',
+        template: 'src/index.ejs'
+      }),
+
       // https://webpack.js.org/plugins/commons-chunk-plugin/
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',

@@ -1,16 +1,4 @@
 # relay-todomvc
-Relay TodoMVC with routing.
-
-## Usage
-
-Visit http://fashionablenonsense.com/relay-todomvc, or clone this repo and run:
-
-```shell
-npm install
-npm start
-```
-
-Then point your browser at [http://localhost:8080/](http://localhost:8080/).
 
 ## Notes
 
