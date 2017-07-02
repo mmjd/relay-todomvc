@@ -45,7 +45,7 @@ import config from './config';
     <Router resolver={resolver} />,
     document.getElementById('root'), 
   );
-});
+})();
 
 
 (()=>{
@@ -74,7 +74,7 @@ ReactDOM.render(
   <Router resolver={new Resolver(environment)} />,
   document.getElementById('root'),
 );
-})();
+});
 
 
 
