@@ -1,5 +1,4 @@
 import 'isomorphic-fetch';
-import RedirectException from 'found/lib/RedirectException';
 
 // TODO: Update this when someone releases a real, production-quality solution
 // for handling universal rendering with Relay Modern. For now, this is just
@@ -11,7 +10,6 @@ class FetcherBase {
   }
 
   async fetch(operation, variables) {
-    console.log('fetching...');
     const response = await fetch(this.url, {
       method: 'POST',
       headers: {
@@ -23,13 +21,10 @@ class FetcherBase {
     if (response.status === 401) {
       console.log('unauthorized. going to login page');
       //throw new RedirectException('http://bing.com/');
-      //throw new Error('Err-11111: authentication failed');
+      throw new Error('Err-11111: authentication failed');
     }
-
-    //response.json().then((data)=>{console.log('response json:', data); return data;}).catch(error=>console.log('error is ', error));
-    //
+    
     return response.json();
-
   }
 }
 

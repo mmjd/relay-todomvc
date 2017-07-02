@@ -6,6 +6,9 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import RemoveCompletedTodosMutation
   from '../mutations/RemoveCompletedTodosMutation';
 
+import styles from './TodoListFooter.css';
+import CSSModules from 'react-css-modules';
+
 const propTypes = {
   viewer: PropTypes.object.isRequired,
   relay: PropTypes.object.isRequired,
@@ -35,18 +38,14 @@ class TodoListFooter extends React.Component {
 
         <ul className="filters">
           <li>
-            <Link to="/todo" activeClassName="selected" exact>All</Link>
+            <Link to="/" activeClassName="selected" exact>All</Link>
           </li>
           <li>
-            <Link to="/todo/status/active" activeClassName="selected">Active</Link>
+            <Link to="/active" activeClassName="selected">Active</Link>
           </li>
           <li>
-            <Link to="/todo/status/completed" activeClassName="selected">Completed</Link>
+            <Link to="/completed" activeClassName="selected">Completed</Link>
           </li>
-          <li>
-            <Link to="/graphql" activeClassName="selected">graphiql</Link>
-          </li>
-
         </ul>
 
         {!!numCompletedTodos && (
@@ -57,6 +56,10 @@ class TodoListFooter extends React.Component {
             Clear completed
           </button>
         )}
+
+        <div styleName="box">
+          BOX For Testing React CSS Modules...
+        </div>
       </footer>
     );
   }
@@ -65,7 +68,7 @@ class TodoListFooter extends React.Component {
 TodoListFooter.propTypes = propTypes;
 
 export default createFragmentContainer(
-  TodoListFooter,
+  CSSModules(TodoListFooter, styles),
   graphql`
     fragment TodoListFooter_viewer on User {
       todos(status: "completed", first: 2147483647) {
